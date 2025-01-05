@@ -18,7 +18,7 @@ function CoinCalculator() {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/calculate", {
+            const response = await fetch("api/calculate", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
