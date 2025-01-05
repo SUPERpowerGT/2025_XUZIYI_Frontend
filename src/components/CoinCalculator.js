@@ -6,20 +6,17 @@ function CoinCalculator() {
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
 
-    // 提交表单时调用后端服务
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError(null);
         setResult(null);
 
-        // 准备请求数据
         const payload = {
             targetAmount: parseFloat(targetAmount),
             denominations: denominations.split(",").map((value) => parseFloat(value.trim())),
         };
 
         try {
-            // 调用后端 API
             const response = await fetch("http://localhost:8080/calculate", {
                 method: "POST",
                 headers: {
@@ -30,7 +27,7 @@ function CoinCalculator() {
 
             if (!response.ok) {
                 const errorMessage = await response.text();
-                throw new Error(errorMessage || "请求失败");
+                throw new Error(errorMessage || "Request failed");
             }
 
             const data = await response.json();
@@ -42,11 +39,11 @@ function CoinCalculator() {
 
     return (
         <div style={{ padding: "20px" }}>
-            <h1>硬币计算器</h1>
+            <h1>Coin Calculator</h1>
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>
-                        目标金额:
+                        Target Amount:
                         <input
                             type="number"
                             step="0.01"
@@ -58,7 +55,7 @@ function CoinCalculator() {
                 </div>
                 <div>
                     <label>
-                        硬币面值 (用逗号分隔):
+                        Coin Denominations (comma-separated):
                         <input
                             type="text"
                             value={denominations}
@@ -67,19 +64,19 @@ function CoinCalculator() {
                         />
                     </label>
                 </div>
-                <button type="submit">计算</button>
+                <button type="submit">Calculate</button>
             </form>
 
             {result && (
                 <div>
-                    <h2>结果：</h2>
+                    <h2>Result:</h2>
                     <p>{result.join(", ")}</p>
                 </div>
             )}
 
             {error && (
                 <div>
-                    <h2>错误：</h2>
+                    <h2>Error:</h2>
                     <p>{error}</p>
                 </div>
             )}
