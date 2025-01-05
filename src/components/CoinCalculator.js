@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CoinCalculator.css";
 
 function CoinCalculator() {
     const [targetAmount, setTargetAmount] = useState("");
@@ -38,44 +39,47 @@ function CoinCalculator() {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
+        <div className="calculator-container">
             <h1>Coin Calculator</h1>
+            <div className="rules">
+                <h2>Game Rules</h2>
+                <ul>
+                    <li>Target amount: Must be between 0 and 10,000.00.</li>
+                    <li>Coin denominations: [0.01, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 50, 100, 1000]</li>
+                </ul>
+            </div>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>
-                        Target Amount:
-                        <input
-                            type="number"
-                            step="0.01"
-                            value={targetAmount}
-                            onChange={(e) => setTargetAmount(e.target.value)}
-                            required
-                        />
-                    </label>
+                <div className="input-group">
+                    <label>Target Amount:</label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        value={targetAmount}
+                        onChange={(e) => setTargetAmount(e.target.value)}
+                        required
+                    />
                 </div>
-                <div>
-                    <label>
-                        Coin Denominations (comma-separated):
-                        <input
-                            type="text"
-                            value={denominations}
-                            onChange={(e) => setDenominations(e.target.value)}
-                            required
-                        />
-                    </label>
+                <div className="input-group">
+                    <label>Coin Denominations (comma-separated):</label>
+                    <input
+                        type="text"
+                        value={denominations}
+                        onChange={(e) => setDenominations(e.target.value)}
+                        required
+                    />
                 </div>
                 <button type="submit">Calculate</button>
             </form>
 
             {result && (
-                <div>
+                <div className="result">
                     <h2>Result:</h2>
                     <p>{result.join(", ")}</p>
                 </div>
             )}
 
             {error && (
-                <div>
+                <div className="error">
                     <h2>Error:</h2>
                     <p>{error}</p>
                 </div>
